@@ -1,0 +1,8 @@
+# .gitignore
+
+```
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
+.DS_Store
+.vscode/
+```
+
