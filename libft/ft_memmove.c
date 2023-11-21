@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@1337.student.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:13:01 by bkaztaou          #+#    #+#             */
-/*   Updated: 2022/11/04 17:57:10 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:10:52 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	if (!dst && !src)
 		return (NULL);
 	if (s < d && (s + len) > d)
-		while (len >= 0 && len--)
+		while (len--)
 			*(d + len) = *(s + len);
 	else
 		ft_memcpy(dst, src, len);

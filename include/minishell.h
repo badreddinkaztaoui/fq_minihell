@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/10/22 14:37:35 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/22 00:10:56 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_parser
 typedef struct s_minishell
 {
 	char	*line;
+	t_lexer	*lexer;
 	char	**env;
 }	t_minishell;
 
@@ -76,17 +77,19 @@ void    minishell_loop(t_minishell *minishell, char **env);
 void    minishell_exit(t_minishell *minishell);
 // Tokens
 t_token *init_token(char *value, t_types type);
+void	print_tokens(t_lexer *lexer, char **env);
 // Lexer
 t_lexer *init_lexer(char *line);
 void    lexer_advance(t_lexer *lexer);
 t_token *lexer_advance_with(t_token *token, t_lexer *lexer);
-t_token *lexer_collect_cmd(t_lexer *lexer);
+char	*lexer_get_env_value(t_lexer *lexer, char **env);
+t_token *lexer_collect_cmd(t_lexer *lexer, char **env);
 t_token	*lexer_collect_squote(t_lexer *lexer);
 t_token	*lexer_collect_dquote(t_lexer *lexer, char **env);
 t_token	*lexer_collect_rarrow(t_lexer *lexer);
 t_token	*lexer_collect_larrow(t_lexer *lexer);
 // Tokenizer
-t_token  *lexer_get_next_token(char *src, char **env);
+t_token	*lexer_get_next_token(t_lexer *lexer, char **env);
 // Utils
 char	*ft_strjoin_char(char *s1, char c);
 

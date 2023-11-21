@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bamsyah <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 22:25:33 by bkaztaou          #+#    #+#             */
-/*   Updated: 2022/11/04 17:55:59 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/19 13:08:39 by bamsyah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_isbashchars(int c)
+{
+	if (c != 124 && c != 60 && c != 62 && c != 39 && c != 34)
+		return (1);
+	return (0);
+}
+
 int	ft_isprint(int c)
 {
-	if (c >= 32 && c <= 126)
+	if ((c > 32 && c <= 126) && ft_isbashchars(c))
 		return (1);
 	return (0);
 }

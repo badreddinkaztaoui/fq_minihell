@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+         #
+#    By: bamsyah <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 17:58:02 by bkaztaou          #+#    #+#              #
-#    Updated: 2023/10/22 15:32:35 by bkaztaou         ###   ########.fr        #
+#    Updated: 2023/11/16 21:51:41 by bamsyah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-FILES = $(wildcard ./*.c)
+FILES = $(wildcard *.c)
 
 OBJ = $(FILES:.c=.o)
 

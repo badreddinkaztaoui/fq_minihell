@@ -3,20 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+         #
+#    By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 08:31:30 by bkaztaou          #+#    #+#              #
-#    Updated: 2023/10/22 15:32:17 by bkaztaou         ###   ########.fr        #
+#    Updated: 2023/11/22 00:11:37 by bkaztaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-READLINE = -lreadline -I/Users/bkaztaou/.brew/opt/readline/include
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+READLINE = -lreadline
 LIBFT = -L./libft -lft
 
-FILES = $(wildcard ./src/*.c) $(wildcard ./utils/*.c)
+FILES = ./src/minishell.c \
+			$(wildcard ./src/parser/*.c) $(wildcard ./src/lexer/*.c) $(wildcard ./utils/*.c)
 OBJ = $(FILES:.c=.o)
 
 GREEN = \033[0;32m
@@ -29,12 +30,12 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@$(MAKE) -C ./libft >/dev/null
 	@echo "$(GREEN)Compiling libft...$(NC)"
-	@$(CC) $(CFLAGS) $(READLINE) $(LIBFT) $(OBJ) -o $(NAME) >/dev/null
+	@$(CC) $(CFLAGS) $(OBJ) $(READLINE) $(LIBFT) -o $(NAME) >/dev/null
 	@echo "$(ORANGE)Linking $(NAME)...$(NC)"
 
 $(OBJ): %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ >/dev/null
-	@echo "$(GREEN)Compiling$<$(NC)"
+	@echo "$(GREEN)Compiling $<$(NC)"
 
 clean:
 	@$(MAKE) -C ./libft fclean
