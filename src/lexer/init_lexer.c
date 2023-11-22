@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 10:23:16 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/22 00:57:07 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/22 01:03:49 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_lexer	*init_lexer(char *line)
 {
-	t_lexer *lexer;
+	t_lexer	*lexer;
 
 	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
@@ -45,20 +45,21 @@ t_token	*lexer_get_next_token(t_lexer *lexer, char **env)
 {
 	while (lexer->c != '\0')
 	{
-	if (ft_iswp(lexer->c))
-		lexer_advance(lexer);
-	if (ft_isprint(lexer->c))
-		return (lexer_collect_cmd(lexer, env));
-	if (lexer->c == '|')
-		return (lexer_advance_with(init_token(ft_strdup("|"), PIPE), lexer));
-	if (lexer->c == '\'')
-		return (lexer_collect_squote(lexer));
-	if (lexer->c == '\"')
-		return (lexer_collect_dquote(lexer, env));
-	if (lexer->c == '<')
-		return (lexer_collect_larrow(lexer));
-	if (lexer->c == '>')
-		return (lexer_collect_rarrow(lexer));
+		if (ft_iswp(lexer->c))
+			lexer_advance(lexer);
+		if (ft_isprint(lexer->c))
+			return (lexer_collect_cmd(lexer, env));
+		if (lexer->c == '|')
+			return (lexer_advance_with(
+					init_token(ft_strdup("|"), PIPE), lexer));
+		if (lexer->c == '\'')
+			return (lexer_collect_squote(lexer));
+		if (lexer->c == '\"')
+			return (lexer_collect_dquote(lexer, env));
+		if (lexer->c == '<')
+			return (lexer_collect_larrow(lexer));
+		if (lexer->c == '>')
+			return (lexer_collect_rarrow(lexer));
 	}
 	return (init_token(ft_strdup("EOF"), END));
 }

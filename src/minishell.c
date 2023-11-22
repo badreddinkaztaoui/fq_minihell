@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:42:41 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/22 00:15:22 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/22 00:59:21 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	minishell_exit(t_minishell *minishell)
 
 int	main(int argc, char **argv, char **env)
 {
-	t_minishell minishell;
+	t_minishell	minishell;
 
 	(void)argc;
 	(void)argv;

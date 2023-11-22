@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_iswp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 13:36:26 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/10/21 13:36:47 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/22 01:05:05 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft.h"
 
-int ft_iswp(int c)
+int	ft_iswp(int c)
 {
-    return (c == ' ' || (c >= 9 && c <= 13));
+	return (c == ' ' || (c >= 9 && c <= 13));
 }

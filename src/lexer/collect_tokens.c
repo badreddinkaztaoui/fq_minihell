@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:11:46 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/22 00:45:03 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/22 01:01:28 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_token	*lexer_collect_cmd(t_lexer *lexer, char **env)
 			value = ft_strjoin(value, lexer_get_env_value(lexer, env));
 			continue ;
 		}
-	value = ft_strjoin_char(value, lexer->c);
-	lexer_advance(lexer);
+		value = ft_strjoin_char(value, lexer->c);
+		lexer_advance(lexer);
 	}
 	return (init_token(value, CMD));
 }
@@ -89,7 +89,7 @@ t_token	*lexer_collect_dquote(t_lexer *lexer, char **env)
 			lexer_advance(lexer);
 			value = ft_strjoin(value, lexer_get_env_value(lexer, env));
 			continue ;
-		} 
+		}
 		else
 			value = ft_strjoin_char(value, lexer->c);
 		lexer_advance(lexer);

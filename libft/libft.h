@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bamsyah <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 17:58:06 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/19 13:05:48 by bamsyah          ###   ########.fr       */
+/*   Updated: 2023/11/22 01:07:03 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		ft_isprint(int c);
 int		ft_isdigit(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize);
+size_t	ft_strlcpy(char *restrict dst,
+			const char *restrict src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -58,7 +59,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_nl_exist(char *str);
 char	*ft_strdup(const char *s1);
-int   ft_iswp(int c);
+int		ft_iswp(int c);
 char	*ft_get_nl(int fd);
 char	*ft_itoa(int n);
 

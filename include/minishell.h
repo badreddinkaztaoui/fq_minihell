@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/22 00:10:56 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/11/22 01:09:20 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "../libft/libft.h"
 
 /* ===== Color ===== */
-#define LIGHT_BLUE "\x1B[1;34m"
-#define RESET "\x1B[0m"
+# define LIGHT_BLUE "\x1B[1;34m"
+# define RESET "\x1B[0m"
 
 /* ===== Prototypes ===== */
 
@@ -73,17 +73,17 @@ typedef struct s_minishell
 /* ===== Prototypes ===== */
 
 // Minishell
-void    minishell_loop(t_minishell *minishell, char **env);
-void    minishell_exit(t_minishell *minishell);
+void	minishell_loop(t_minishell *minishell, char **env);
+void	minishell_exit(t_minishell *minishell);
 // Tokens
-t_token *init_token(char *value, t_types type);
+t_token	*init_token(char *value, t_types type);
 void	print_tokens(t_lexer *lexer, char **env);
 // Lexer
-t_lexer *init_lexer(char *line);
-void    lexer_advance(t_lexer *lexer);
-t_token *lexer_advance_with(t_token *token, t_lexer *lexer);
+t_lexer	*init_lexer(char *line);
+void	lexer_advance(t_lexer *lexer);
+t_token	*lexer_advance_with(t_token *token, t_lexer *lexer);
 char	*lexer_get_env_value(t_lexer *lexer, char **env);
-t_token *lexer_collect_cmd(t_lexer *lexer, char **env);
+t_token	*lexer_collect_cmd(t_lexer *lexer, char **env);
 t_token	*lexer_collect_squote(t_lexer *lexer);
 t_token	*lexer_collect_dquote(t_lexer *lexer, char **env);
 t_token	*lexer_collect_rarrow(t_lexer *lexer);
