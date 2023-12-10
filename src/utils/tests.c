@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_tokens.c                                     :+:      :+:    :+:   */
+/*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 13:32:09 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/21 19:34:31 by bkaztaou         ###   ########.fr       */
+/*   Created: 2023/11/27 18:03:48 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/11/27 23:36:49 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	print_tokens(t_lexer *lexer, char **env)
 {
@@ -30,4 +30,14 @@ void	print_tokens(t_lexer *lexer, char **env)
 	printf("|-----------------|-----------------|\n");
 	free(token->value);
 	free(token);
+}
+
+void	print_command(t_command *command)
+{
+	while (command)
+	{
+		for (int i = 0; i < command->index; i++)
+			printf("|%-17s|\n", command->items[i]);
+		command = command->next;
+	}
 }

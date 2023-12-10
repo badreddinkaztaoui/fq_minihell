@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_char.c                                  :+:      :+:    :+:   */
+/*   init_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/22 12:16:14 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/22 01:09:56 by bkaztaou         ###   ########.fr       */
+/*   Created: 2023/11/28 04:18:19 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/11/28 04:32:26 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-char	*ft_strjoin_char(char *s1, char c)
+t_command	*init_command(void)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	t_command	*command;
 
-	if (!s1)
+	command = malloc(sizeof(t_command));
+	if (!command)
 		return (NULL);
-	str = malloc(sizeof(char) * (ft_strlen(s1) + 2));
-	if (!str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-		str[j++] = s1[i++];
-	str[j++] = c;
-	str[j] = '\0';
-	free(s1);
-	return (str);
+	command->in_fd = 0;
+	command->out_fd = 1;
+	command->index = 0;
+	command->items = NULL;
+	command->next = NULL;
+	return (command);
+}
+
+void	init_parser(t_parser *parser)
+{
+	parser->command = init_command();
+	parser->prev_token = NULL;
+	parser->next_token = NULL;
 }
