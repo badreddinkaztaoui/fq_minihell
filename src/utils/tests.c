@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:03:48 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/27 23:36:49 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:56:20 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	print_command(t_command *command)
 	while (command)
 	{
 		for (int i = 0; i < command->index; i++)
+		{
 			printf("|%-17s|\n", command->items[i]);
+		}
+		printf("in_fd: %d\n", command->in_fd);
+		printf("out_fd: %d\n", command->out_fd);
 		command = command->next;
 	}
 }

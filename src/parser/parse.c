@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 22:35:39 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/11 04:21:53 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:31:17 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,23 @@ void add_token_to_command(t_command *command, char *item)
 	command->index++;
 }
 
-void	parse_cmd_by_type(t_command *command, t_parser *parser)
+void	handle_redirection(t_command **command, t_parser *parser, char **env)
+{
+	if (parser->prev_token->type == HEREDOC)
+		heredoc(parser->next_token->value, command, env);
+}
+
+void	parse_cmd_by_type(t_command **command, t_parser *parser, char **env)
 {
 	if (parser->next_token->type == CMD)
-		add_token_to_command(command, parser->next_token->value);
+		add_token_to_command(*command, parser->next_token->value);
 	else if (parser->next_token->type == PIPE)
 	{
-		if (!is_valid_pipe_pos(parser))
-			return ;
-		command = command->next;
+		(*command)->next = init_command();
+		*command = (*command)->next;
 	}
-	if (parser->prev_token)
-		free_token(parser->prev_token);
-	parser->prev_token = clone_token(parser->next_token);
+	if (is_redirection(parser->prev_token))
+		handle_redirection(command, parser, env);
 }
 
 void parse(t_lexer *lexer, char **env, t_parser *parser)
@@ -48,17 +52,16 @@ void parse(t_lexer *lexer, char **env, t_parser *parser)
 	parser->next_token = lexer_get_next_token(lexer, env);
 	while (parser->next_token->type != END)
 	{
-		parse_cmd_by_type(command, parser);
+		if (is_start_w_pipe(parser))
+			return ;
+		if (parser->prev_token)
+			free_token(parser->prev_token);
+		parser->prev_token = clone_token(parser->next_token);
 		free_token(parser->next_token);
 		parser->next_token = lexer_get_next_token(lexer, env);
-		if (parser->prev_token->type == HEREDOC && parser->next_token->type == CMD)
-			ft_heredoc(parser->next_token->value, command, env);
-		if (!is_valid_end_cmd(parser))
-		{
-			free_token(parser->prev_token);
-			free_token(parser->next_token);
+		if (!is_valid_cmd(parser))
 			return ;
-		}
+		parse_cmd_by_type(&command, parser, env);
 	}
 	free_token(parser->prev_token);
 	free_token(parser->next_token);

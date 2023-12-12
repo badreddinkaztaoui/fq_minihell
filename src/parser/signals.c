@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exiterr.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 00:32:34 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/12 16:59:54 by bkaztaou         ###   ########.fr       */
+/*   Created: 2023/12/12 07:03:31 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/12/12 07:04:28 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_unexpected_token(char *token)
+void	ctrl_handler(int num)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-	ft_putstr_fd(token, 2);
-	ft_putstr_fd("'\n", 2);
-}
-
-void	ft_command_not_found(char *command)
-{
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd("\n", 2);
-	exit(127);
+	(void)num;
+	ft_putstr_fd("\n", 1);
+	exit(1);
 }

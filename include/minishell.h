@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/11 04:22:14 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:26:30 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # include <stdint.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -32,6 +34,10 @@
 # define R_FILE_SIZE 4
 
 /* ===== Prototypes ===== */
+
+// Global variables
+
+
 typedef enum s_types
 {
 	CMD,
@@ -90,8 +96,6 @@ void		minishell_exit(t_minishell *minishell);
 // Tokens
 t_token		*init_token(char *value, t_types type);
 t_token		*clone_token(t_token *token);
-int			is_valid_pipe_pos(t_parser *parser);
-int			is_valid_end_cmd(t_parser *parser);
 // Lexer
 t_lexer		*init_lexer(char *line);
 void		lexer_advance(t_lexer *lexer);
@@ -108,7 +112,15 @@ t_token		*lexer_get_next_token(t_lexer *lexer, char **env);
 t_command	*init_command(void);
 void		init_parser(t_parser *parser);
 void		parse(t_lexer *lexer, char **env, t_parser *parser);
-void		ft_heredoc(char *del, t_command *cmd, char **env);
+char		*ft_genname(void);
+int			heredoc(char *del, t_command **cmd, char **env);
+void		ft_heredoc(char *del, char *filename, char **env);
+// CHECKERS
+int			is_valid_cmd(t_parser *parser);
+int			is_redirection(t_token *token);
+int			is_start_w_pipe(t_parser *parser);
+// SIGNALS
+void		ctrl_handler(int num);
 // Utils
 void		*ft_realloc(void *ptr, size_t size);
 // Free
