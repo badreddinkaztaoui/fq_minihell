@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/12 19:26:30 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 00:04:39 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,11 @@ char		*ft_genname(void);
 int			heredoc(char *del, t_command **cmd, char **env);
 void		ft_heredoc(char *del, char *filename, char **env);
 // CHECKERS
-int			is_valid_cmd(t_parser *parser);
+int			is_iofiles(t_token *token);
 int			is_redirection(t_token *token);
-int			is_start_w_pipe(t_parser *parser);
+int			is_not_cmd(t_token *token);
+int			can_add_cmd(t_parser *parser);
+int			is_valid_cmd(t_parser *parser);
 // SIGNALS
 void		ctrl_handler(int num);
 // Utils
