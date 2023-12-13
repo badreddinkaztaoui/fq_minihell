@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:26:24 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 00:05:37 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:51:43 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,22 @@ int	can_add_cmd(t_parser *parser)
 		return (0);
 	else if (parser->prev_token
 		&& (is_redirection(parser->prev_token)
-		&& parser->next_token->type == CMD))
+			&& parser->next_token->type == CMD))
 		return (0);
 	return (1);
 }
 
-int is_valid_cmd(t_parser *parser)
+int	is_valid_cmd(t_parser *parser)
 {
-	if (parser->next_token->type == END && is_not_cmd(parser->prev_token))
+	if ((parser->next_token->type == END && is_not_cmd(parser->prev_token))
+		|| (parser->prev_token->type == PIPE
+			&& parser->next_token->type == PIPE)
+		|| (parser->prev_token && is_redirection(parser->prev_token)
+			&& is_not_cmd(parser->next_token)))
 	{
 		ft_unexpected_token(parser->prev_token->value);
-		free_token(parser->prev_token);
 		free_token(parser->next_token);
-		return (0);
-	}
-	else if (parser->prev_token && is_redirection(parser->prev_token)
-		&& is_not_cmd(parser->next_token))
-	{
-		ft_unexpected_token(parser->next_token->value);
 		free_token(parser->prev_token);
-		free_token(parser->next_token);
 		return (0);
 	}
 	return (1);

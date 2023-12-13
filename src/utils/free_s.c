@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 04:50:54 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/10 21:44:23 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:49:14 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	free_command(t_parser *parser)
 		tmp = next;
 	}
 	free(tmp);
-	
 }
 
 void	free_token(t_token *token)

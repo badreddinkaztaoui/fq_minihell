@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:19:00 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/12 15:41:33 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:53:07 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_genname(void)
 	char	*filename;
 	int		fd;
 	int		i;
-
 
 	filename = malloc(R_FILE_SIZE + 1);
 	fd = open(R_FILE, O_RDONLY);
@@ -41,14 +40,15 @@ char	*ft_addenvtoval(char *value, char *key, char **env)
 
 	j = -1;
 	while (env[++j])
-    {
-        if (ft_strncmp(env[j], key, ft_strlen(key)) == 0 && env[j][ft_strlen(key)] == '=')
-        {
-            tmp = ft_strdup(env[j] + ft_strlen(key) + 1);
+	{
+		if (ft_strncmp(env[j], key, ft_strlen(key)) == 0
+			&& env[j][ft_strlen(key)] == '=')
+		{
+			tmp = ft_strdup(env[j] + ft_strlen(key) + 1);
 			value = ft_strjoin(value, tmp);
 			return (value);
-        }
-    }
+		}
+	}
 	return (value);
 }
 
@@ -84,7 +84,7 @@ void	ft_heredoc(char *del, char *filename, char **env)
 	char	*tmp;
 	int		fd;
 
-	fd = open(filename , O_CREAT | O_RDWR, 0644);
+	fd = open(filename, O_CREAT | O_RDWR, 0644);
 	while (1)
 	{
 		line = readline("> ");

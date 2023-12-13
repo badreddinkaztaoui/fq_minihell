@@ -6,35 +6,25 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 22:35:39 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 00:46:33 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:48:34 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void add_token_to_command(t_command *command, char *item)
+void	add_token_to_command(t_command *command, char *item)
 {
-	command->items = ft_realloc(command->items, sizeof(char *) * (command->index + 1));
-	command->items[command->index] = malloc(sizeof(char) * (ft_strlen(item) + 1));
+	command->items = ft_realloc(command->items, sizeof(char *)
+			* (command->index + 1));
+	command->items[command->index]
+		= malloc(sizeof(char) * (ft_strlen(item) + 1));
 	if (!command->items[command->index])
-		return;
+		return ;
 	ft_strlcpy(command->items[command->index], item, ft_strlen(item) + 1);
 	command->index++;
 }
 
-void	handle_redirection(t_command **command, t_parser *parser, char **env)
-{
-	if (parser->prev_token->type == HEREDOC)
-		heredoc(parser->next_token->value, command, env);
-	// else if (parser->prev_token->type == REDIR_IN)
-	// 	redir_in(parser->next_token->value, command, env);
-	// else if (parser->prev_token->type == REDIR_OUT)
-	// 	redir_out(parser->next_token->value, command, env);
-	// else if (parser->prev_token->type == REDIR_APPEND)
-	// 	redir_append(parser->next_token->value, command, env);
-}
-
-void	parse_redirs(t_command **cmd, t_parser *parser, char **env)
+void	parse_cmd(t_command **cmd, t_parser *parser, char **env)
 {
 	if (parser->next_token->type == PIPE)
 	{
@@ -49,7 +39,7 @@ int	is_valid_start(t_parser *parser)
 {
 	if (!parser->prev_token
 		&& (is_iofiles(parser->next_token)
-		|| parser->next_token->type == PIPE))
+			|| parser->next_token->type == PIPE))
 	{
 		ft_unexpected_token(parser->next_token->value);
 		free_token(parser->next_token);
@@ -58,9 +48,9 @@ int	is_valid_start(t_parser *parser)
 	return (1);
 }
 
-void parse(t_lexer *lexer, char **env, t_parser *parser)
+void	parse(t_lexer *lexer, char **env, t_parser *parser)
 {
-	t_command 	*command;
+	t_command	*command;
 
 	init_parser(parser);
 	command = parser->command;
@@ -78,7 +68,7 @@ void parse(t_lexer *lexer, char **env, t_parser *parser)
 		parser->next_token = lexer_get_next_token(lexer, env);
 		if (!is_valid_cmd(parser))
 			return ;
-		parse_redirs(&command, parser, env);
+		parse_cmd(&command, parser, env);
 	}
 	free_token(parser->prev_token);
 	free_token(parser->next_token);

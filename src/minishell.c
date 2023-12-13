@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:42:41 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/10 21:44:10 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:01:50 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	minishell_loop(t_minishell *minishell, t_parser *parser, char **env)
 		if (ft_strncmp(minishell->line, "exit", 4) == 0)
 			break ;
 		parse(minishell->lexer, minishell->env, parser);
+		print_command(parser->command);
 		free_command(parser);
 		minishell_exit(minishell);
 	}

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 09:33:59 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/10 16:12:58 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:43:52 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*init_token(char *value, t_types type)
 
 t_token	*clone_token(t_token *token)
 {
-	t_token *new_token;
+	t_token	*new_token;
 
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)

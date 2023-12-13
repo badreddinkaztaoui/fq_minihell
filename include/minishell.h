@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 00:04:39 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/13 02:40:36 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,11 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-/* ===== Color ===== */
+// COLORS
 # define LIGHT_BLUE "\x1B[1;34m"
 # define RESET "\x1B[0m"
 # define R_FILE "/dev/random"
 # define R_FILE_SIZE 4
-
-/* ===== Prototypes ===== */
-
-// Global variables
-
 
 typedef enum s_types
 {
@@ -115,6 +110,7 @@ void		parse(t_lexer *lexer, char **env, t_parser *parser);
 char		*ft_genname(void);
 int			heredoc(char *del, t_command **cmd, char **env);
 void		ft_heredoc(char *del, char *filename, char **env);
+void		handle_redirection(t_command **cmd, t_parser *pars, char **env);
 // CHECKERS
 int			is_iofiles(t_token *token);
 int			is_redirection(t_token *token);
