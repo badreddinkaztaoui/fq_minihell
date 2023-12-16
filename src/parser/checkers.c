@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:26:24 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 02:51:43 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/16 14:09:38 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_iofiles(t_token *token)
 {
-	if (token->type == REDIR_IN || token->type == REDIR_OUT
+	if (token->type == REDIR_OUT
 		|| token->type == REDIR_APPEND)
 		return (1);
 	return (0);
@@ -22,7 +22,8 @@ int	is_iofiles(t_token *token)
 
 int	is_redirection(t_token *token)
 {
-	if (is_iofiles(token) || token->type == HEREDOC)
+	if (is_iofiles(token) || token->type == REDIR_IN
+		|| token->type == HEREDOC)
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collect_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:11:46 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/11/22 01:01:28 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/16 19:11:29 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ t_token	*lexer_collect_cmd(t_lexer *lexer, char **env)
 		if (lexer->c == '$')
 		{
 			lexer_advance(lexer);
+			// if (lexer->c == '?')
+			// {
+			// 	value = ft_strjoin_char(value, g_global.ex_status + '0');
+			// 	lexer_advance(lexer);
+			// 	continue ;
+			// }
 			value = ft_strjoin(value, lexer_get_env_value(lexer, env));
 			continue ;
 		}

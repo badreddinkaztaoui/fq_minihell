@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 02:40:36 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/16 19:14:28 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define RESET "\x1B[0m"
 # define R_FILE "/dev/random"
 # define R_FILE_SIZE 4
+
+// Global Variables
+// typedef struct s_gob
+// {
+// 	int	ex_status;
+// }	t_gob;
 
 typedef enum s_types
 {
@@ -129,5 +135,6 @@ void		print_tokens(t_lexer *lexer, char **env);
 void		print_command(t_command *command);
 // Exiters
 void		ft_unexpected_token(char *token);
+void		ft_nofile(char *token);
 
 #endif

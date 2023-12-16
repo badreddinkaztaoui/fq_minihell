@@ -3,17 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:28:30 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 02:53:30 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/16 18:42:33 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+void	redir_in(t_command **cmd, t_parser *pars)
+{
+	int	fd;
+
+	fd = open(pars->next_token->value, O_RDONLY, 0677);
+	if (fd == -1)
+	{
+		ft_nofile(pars->next_token->value);
+		return ;
+	}
+	(*cmd)->in_fd = fd;
+	// close(fd);
+	unlink(pars->next_token->value);
+}
+
+void	redir_out(t_command **cmd, t_parser *pars)
+{
+	int	fd;
+
+	fd = open(pars->next_token->value, O_WRONLY | O_CREAT | O_TRUNC, 0677);
+	if (fd == -1)
+	{
+		ft_nofile(pars->next_token->value);
+		return ;
+	}
+	(*cmd)->out_fd = fd;
+	close(fd);
+}
+
+void	redir_append(t_command **cmd, t_parser *pars)
+{
+	int	fd;
+
+	fd = open(pars->next_token->value, O_WRONLY | O_CREAT | O_APPEND, 0677);
+	if (fd == -1)
+	{
+		ft_nofile(pars->next_token->value);
+		return ;
+	}
+	(*cmd)->out_fd = fd;
+	// close(fd);
+	unlink(pars->next_token->value);
+}
+
 void	handle_redirection(t_command **cmd, t_parser *pars, char **env)
 {
 	if (pars->prev_token->type == HEREDOC)
 		heredoc(pars->next_token->value, cmd, env);
+	if (pars->prev_token->type == REDIR_IN)
+		redir_in(cmd, pars);
+	if (pars->prev_token->type == REDIR_OUT)
+		redir_out(cmd, pars);
+	if (pars->prev_token->type == REDIR_APPEND)
+		redir_append(cmd, pars);
 }
