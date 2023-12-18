@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/16 19:14:28 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/18 04:56:56 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@
 # define R_FILE_SIZE 4
 
 // Global Variables
-// typedef struct s_gob
-// {
-// 	int	ex_status;
-// }	t_gob;
+typedef struct s_gob
+{
+	int	ex_status;
+}	t_gob;
 
 typedef enum s_types
 {
@@ -136,5 +136,7 @@ void		print_command(t_command *command);
 // Exiters
 void		ft_unexpected_token(char *token);
 void		ft_nofile(char *token);
+
+t_gob	g_gob;
 
 #endif

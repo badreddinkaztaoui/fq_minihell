@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   uheredoc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:19:00 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/16 18:31:34 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:33:52 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_expand_env(char *line, char **env)
 	if (line[i] == '$')
 	{
 		if (line[i + 1] == '?' && !ft_isprint(line[i + 2]))
-			printf("Exit status\n");
+			value = ft_strjoin_char(value, g_gob.ex_status + '0');
 		while (ft_isprint(line[i + 1]))
 			key = ft_strjoin_char(key, line[++i]);
 		i++;

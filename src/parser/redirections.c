@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:28:30 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/16 18:42:33 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:31:01 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	redir_in(t_command **cmd, t_parser *pars)
 		return ;
 	}
 	(*cmd)->in_fd = fd;
-	// close(fd);
 	unlink(pars->next_token->value);
 }
 
@@ -38,7 +37,7 @@ void	redir_out(t_command **cmd, t_parser *pars)
 		return ;
 	}
 	(*cmd)->out_fd = fd;
-	close(fd);
+	close((*cmd)->out_fd);
 }
 
 void	redir_append(t_command **cmd, t_parser *pars)
@@ -51,9 +50,10 @@ void	redir_append(t_command **cmd, t_parser *pars)
 		ft_nofile(pars->next_token->value);
 		return ;
 	}
+	if ((*cmd)->out_fd != 1)
+		close((*cmd)->out_fd);
 	(*cmd)->out_fd = fd;
-	// close(fd);
-	unlink(pars->next_token->value);
+	close((*cmd)->out_fd);
 }
 
 void	handle_redirection(t_command **cmd, t_parser *pars, char **env)

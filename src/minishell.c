@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:42:41 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/16 19:14:47 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/18 04:57:26 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	g_gob.ex_status = 0;
 	minishell_loop(&minishell, &parser, env);
 	clear_history();
 	minishell_exit(&minishell);
