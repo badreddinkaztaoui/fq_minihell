@@ -6,13 +6,13 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:09:38 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/13 02:50:56 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 01:28:51 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_hd_process(char *del, char *filename, char **env)
+int	ft_hd_process(char *del, char *filename)
 {
 	int		id;
 	int		status;
@@ -24,7 +24,7 @@ int	ft_hd_process(char *del, char *filename, char **env)
 	if (id == 0)
 	{
 		signal(SIGINT, ctrl_handler);
-		ft_heredoc(del, filename, env);
+		ft_heredoc(del, filename);
 		exit(0);
 	}
 	waitpid(id, &status, 0);
@@ -33,7 +33,7 @@ int	ft_hd_process(char *del, char *filename, char **env)
 	return (0);
 }
 
-int	heredoc(char *del, t_command **cmd, char **env)
+int	heredoc(char *del, t_command **cmd)
 {
 	char	*filename;
 	char	*tmp;
@@ -42,7 +42,7 @@ int	heredoc(char *del, t_command **cmd, char **env)
 	filename = ft_genname();
 	tmp = ft_strdup("/tmp/tmp_");
 	filename = ft_strjoin(tmp, filename);
-	if (ft_hd_process(del, filename, env))
+	if (ft_hd_process(del, filename))
 	{
 		unlink(filename);
 		free(filename);

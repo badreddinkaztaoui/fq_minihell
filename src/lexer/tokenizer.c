@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collect_tokens.c                                   :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:11:46 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:34:35 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 23:44:13 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,14 @@ t_token	*lexer_collect_rarrow(t_lexer *lexer)
 	return (init_token(value, REDIR_OUT));
 }
 
-t_token	*lexer_collect_cmd(t_lexer *lexer, char **env)
+t_token	*lexer_collect_cmd(t_lexer *lexer)
 {
 	char	*value;
 
 	value = ft_strdup("");
-	while (lexer->c != '\0' && ft_isprint(lexer->c))
-	{
-		if (lexer->c == '$')
-		{
-			lexer_advance(lexer);
-			if (lexer->c == '?')
-			{
-				value = ft_strjoin_char(value, g_gob.ex_status + '0');
-				lexer_advance(lexer);
-				continue ;
-			}
-			value = ft_strjoin(value, lexer_get_env_value(lexer, env));
-			continue ;
-		}
-		value = ft_strjoin_char(value, lexer->c);
-		lexer_advance(lexer);
-	}
+	value = c_expand(lexer, value);
+	if (!value)
+		return (init_token(ft_strdup(""), END));
 	return (init_token(value, CMD));
 }
 
@@ -73,39 +59,22 @@ t_token	*lexer_collect_squote(t_lexer *lexer)
 
 	lexer_advance(lexer);
 	value = ft_strdup("");
-	while (lexer->c != '\'' && lexer->c != '\0')
-	{
-		value = ft_strjoin_char(value, lexer->c);
-		lexer_advance(lexer);
-	}
+	value = q_expand(lexer, value, '\'');
 	lexer_advance(lexer);
+	if (!value)
+		return (init_token(ft_strdup(""), END));
 	return (init_token(value, CMD));
 }
 
-t_token	*lexer_collect_dquote(t_lexer *lexer, char **env)
+t_token	*lexer_collect_dquote(t_lexer *lexer)
 {
 	char	*value;
 
 	lexer_advance(lexer);
 	value = ft_strdup("");
-	while (lexer->c != '\"' && lexer->c != '\0')
-	{
-		if (lexer->c == '$')
-		{
-			lexer_advance(lexer);
-			if (lexer->c == '?')
-			{
-				value = ft_strjoin_char(value, g_gob.ex_status + '0');
-				lexer_advance(lexer);
-				continue ;
-			}
-			value = ft_strjoin(value, lexer_get_env_value(lexer, env));
-			continue ;
-		}
-		else
-			value = ft_strjoin_char(value, lexer->c);
-		lexer_advance(lexer);
-	}
+	value = q_expand(lexer, value, '\"');
 	lexer_advance(lexer);
+	if (!value)
+		return (init_token(ft_strdup(""), END));
 	return (init_token(value, CMD));
 }

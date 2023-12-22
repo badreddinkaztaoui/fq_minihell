@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:19:00 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:33:52 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 01:27:08 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ char	*ft_genname(void)
 	return (filename);
 }
 
-char	*ft_addenvtoval(char *value, char *key, char **env)
+char	*ft_addenvtoval(char *value, char *key)
 {
 	int		j;
 	char	*tmp;
 
 	j = -1;
-	while (env[++j])
+	while (g_gob.env[++j])
 	{
-		if (ft_strncmp(env[j], key, ft_strlen(key)) == 0
-			&& env[j][ft_strlen(key)] == '=')
+		if (ft_strncmp(g_gob.env[j], key, ft_strlen(key)) == 0
+			&& g_gob.env[j][ft_strlen(key)] == '=')
 		{
-			tmp = ft_strdup(env[j] + ft_strlen(key) + 1);
+			tmp = ft_strdup(g_gob.env[j] + ft_strlen(key) + 1);
 			value = ft_strjoin(value, tmp);
 			return (value);
 		}
@@ -52,7 +52,7 @@ char	*ft_addenvtoval(char *value, char *key, char **env)
 	return (value);
 }
 
-char	*ft_expand_env(char *line, char **env)
+char	*ft_expand_env(char *line)
 {
 	char	*value;
 	char	*key;
@@ -74,13 +74,13 @@ char	*ft_expand_env(char *line, char **env)
 			key = ft_strjoin_char(key, line[++i]);
 		i++;
 	}
-	value = ft_addenvtoval(value, key, env);
+	value = ft_addenvtoval(value, key);
 	while (line[i])
 		value = ft_strjoin_char(value, line[i++]);
 	return (free(key), value);
 }
 
-void	ft_heredoc(char *del, char *filename, char **env)
+void	ft_heredoc(char *del, char *filename)
 {
 	char	*line;
 	char	*tmp;
@@ -94,7 +94,7 @@ void	ft_heredoc(char *del, char *filename, char **env)
 			break ;
 		if (ft_strchr(line, '$'))
 		{
-			tmp = ft_expand_env(line, env);
+			tmp = ft_expand_env(line);
 			free(line);
 			line = tmp;
 		}

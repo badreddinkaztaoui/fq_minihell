@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exiterr.c                                       :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 00:32:34 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/18 04:58:18 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 23:38:30 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	ft_unexpected_token(char *token)
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
 	g_gob.ex_status = 2;
+}
+
+void	ft_genl_err(char *error)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(error, 2);
+	ft_putstr_fd("\n", 2);
+	g_gob.ex_status = 1;
 }
 
 void	ft_nofile(char *token)

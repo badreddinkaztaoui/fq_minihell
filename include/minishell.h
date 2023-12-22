@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/18 04:56:56 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 23:41:55 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 // Global Variables
 typedef struct s_gob
 {
-	int	ex_status;
+	int		ex_status;
+	char	**env;
 }	t_gob;
 
 typedef enum s_types
@@ -91,32 +92,35 @@ typedef struct s_minishell
 /* ===== Prototypes ===== */
 
 // Minishell
-void		minishell_loop(t_minishell *minishell,
-				t_parser *parser, char **env);
+void		minishell_loop(t_minishell *minishell, t_parser *parser);
 void		minishell_exit(t_minishell *minishell);
 // Tokens
 t_token		*init_token(char *value, t_types type);
 t_token		*clone_token(t_token *token);
+void		init_envs(char **env);
 // Lexer
 t_lexer		*init_lexer(char *line);
 void		lexer_advance(t_lexer *lexer);
 t_token		*lexer_advance_with(t_token *token, t_lexer *lexer);
-char		*lexer_get_env_value(t_lexer *lexer, char **env);
-t_token		*lexer_collect_cmd(t_lexer *lexer, char **env);
+char		*get_env_val(t_lexer *lexer);
+t_token		*lexer_collect_cmd(t_lexer *lexer);
 t_token		*lexer_collect_squote(t_lexer *lexer);
-t_token		*lexer_collect_dquote(t_lexer *lexer, char **env);
+t_token		*lexer_collect_dquote(t_lexer *lexer);
 t_token		*lexer_collect_rarrow(t_lexer *lexer);
 t_token		*lexer_collect_larrow(t_lexer *lexer);
 // Tokenizer
-t_token		*lexer_get_next_token(t_lexer *lexer, char **env);
+t_token		*lexer_get_next_token(t_lexer *lexer);
+// Expands
+char		*q_expand(t_lexer *lexer, char *val, char quote);
+char		*c_expand(t_lexer *lexer, char *val);
 // Parser
 t_command	*init_command(void);
 void		init_parser(t_parser *parser);
-void		parse(t_lexer *lexer, char **env, t_parser *parser);
+void		parse(t_lexer *lexer, t_parser *parser);
 char		*ft_genname(void);
-int			heredoc(char *del, t_command **cmd, char **env);
-void		ft_heredoc(char *del, char *filename, char **env);
-void		handle_redirection(t_command **cmd, t_parser *pars, char **env);
+int			heredoc(char *del, t_command **cmd);
+void		ft_heredoc(char *del, char *filename);
+void		handle_redirection(t_command **cmd, t_parser *pars);
 // CHECKERS
 int			is_iofiles(t_token *token);
 int			is_redirection(t_token *token);
@@ -131,12 +135,13 @@ void		*ft_realloc(void *ptr, size_t size);
 void		free_token(t_token *token);
 void		free_command(t_parser *parser);
 // Testers
-void		print_tokens(t_lexer *lexer, char **env);
+void		print_tokens(t_lexer *lexer);
 void		print_command(t_command *command);
 // Exiters
 void		ft_unexpected_token(char *token);
+void		ft_genl_err(char *token);
 void		ft_nofile(char *token);
 
-t_gob	g_gob;
+extern t_gob	g_gob;
 
 #endif

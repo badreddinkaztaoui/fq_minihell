@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:28:30 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/18 15:31:01 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 01:29:54 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	redir_append(t_command **cmd, t_parser *pars)
 	close((*cmd)->out_fd);
 }
 
-void	handle_redirection(t_command **cmd, t_parser *pars, char **env)
+void	handle_redirection(t_command **cmd, t_parser *pars)
 {
 	if (pars->prev_token->type == HEREDOC)
-		heredoc(pars->next_token->value, cmd, env);
+		heredoc(pars->next_token->value, cmd);
 	if (pars->prev_token->type == REDIR_IN)
 		redir_in(cmd, pars);
 	if (pars->prev_token->type == REDIR_OUT)

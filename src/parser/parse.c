@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 22:35:39 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/16 14:02:59 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/22 01:29:30 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_token_to_command(t_command *command, char *item)
 	command->index++;
 }
 
-void	parse_cmd(t_command **cmd, t_parser *parser, char **env)
+void	parse_cmd(t_command **cmd, t_parser *parser)
 {
 	if (parser->next_token->type == PIPE)
 	{
@@ -32,7 +32,7 @@ void	parse_cmd(t_command **cmd, t_parser *parser, char **env)
 		*cmd = (*cmd)->next;
 	}
 	if (is_redirection(parser->prev_token))
-		handle_redirection(cmd, parser, env);
+		handle_redirection(cmd, parser);
 }
 
 int	is_valid_start(t_parser *parser)
@@ -48,13 +48,13 @@ int	is_valid_start(t_parser *parser)
 	return (1);
 }
 
-void	parse(t_lexer *lexer, char **env, t_parser *parser)
+void	parse(t_lexer *lexer, t_parser *parser)
 {
 	t_command	*command;
 
 	init_parser(parser);
 	command = parser->command;
-	parser->next_token = lexer_get_next_token(lexer, env);
+	parser->next_token = lexer_get_next_token(lexer);
 	while (parser->next_token->type != END)
 	{
 		if (!is_valid_start(parser))
@@ -65,10 +65,10 @@ void	parse(t_lexer *lexer, char **env, t_parser *parser)
 			free_token(parser->prev_token);
 		parser->prev_token = clone_token(parser->next_token);
 		free_token(parser->next_token);
-		parser->next_token = lexer_get_next_token(lexer, env);
+		parser->next_token = lexer_get_next_token(lexer);
 		if (!is_valid_cmd(parser))
 			return ;
-		parse_cmd(&command, parser, env);
+		parse_cmd(&command, parser);
 	}
 	free_token(parser->prev_token);
 	free_token(parser->next_token);
