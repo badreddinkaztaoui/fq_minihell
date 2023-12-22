@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 02:01:11 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 23:49:19 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/23 00:11:18 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*get_env_val(t_lexer *lexer)
 		key = ft_strjoin_char(key, lexer->c);
 		lexer_advance(lexer);
 	}
+	if (ft_strlen(key) == 0)
+		return (free(key), ft_strdup("$"));
 	while (g_gob.env[i])
 	{
 		if (ft_strncmp(g_gob.env[i], key, ft_strlen(key)) == 0)
@@ -74,6 +76,10 @@ char	*c_expand(t_lexer *lexer, char *val)
 				lexer_advance(lexer);
 				continue ;
 			}
+			if (lexer->c == '\0' || !ft_isalnum(lexer->c)) {
+                val = ft_strjoin_char(val, '$');
+                continue;
+            }
 			val = ft_strjoin(val, get_env_val(lexer));
 			continue ;
 		}
