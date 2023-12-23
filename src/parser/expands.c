@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 02:01:11 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/23 00:11:18 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/23 01:28:41 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,11 @@ char	*c_expand(t_lexer *lexer, char *val)
 				lexer_advance(lexer);
 				continue ;
 			}
-			if (lexer->c == '\0' || !ft_isalnum(lexer->c)) {
-                val = ft_strjoin_char(val, '$');
-                continue;
-            }
+			if (lexer->c == '\0' || !ft_isalnum(lexer->c))
+			{
+				val = ft_strjoin_char(val, '$');
+				continue ;
+			}
 			val = ft_strjoin(val, get_env_val(lexer));
 			continue ;
 		}

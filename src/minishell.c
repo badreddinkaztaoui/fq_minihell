@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:42:41 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 01:42:36 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:29:40 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_gob.ex_status = 0;
+	g_gob.heredoc_count = 0;
 	init_envs(env);
 	minishell_loop(&minishell, &parser);
 	clear_history();

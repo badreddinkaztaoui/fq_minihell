@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 23:41:55 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:30:33 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 typedef struct s_gob
 {
 	int		ex_status;
+	int		heredoc_count;
 	char	**env;
 }	t_gob;
 
@@ -47,6 +48,8 @@ typedef enum s_types
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
+	SQUOTE,
+	DQUOTE,
 	HEREDOC,
 	END,
 }	t_types;
@@ -118,8 +121,8 @@ t_command	*init_command(void);
 void		init_parser(t_parser *parser);
 void		parse(t_lexer *lexer, t_parser *parser);
 char		*ft_genname(void);
-int			heredoc(char *del, t_command **cmd);
-void		ft_heredoc(char *del, char *filename);
+int			heredoc(t_token *del, t_command **cmd);
+void		ft_heredoc(t_token *del, char *filename);
 void		handle_redirection(t_command **cmd, t_parser *pars);
 // CHECKERS
 int			is_iofiles(t_token *token);

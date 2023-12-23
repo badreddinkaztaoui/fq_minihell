@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bkaztaou <bkaztaou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:26:24 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/16 14:09:38 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:24:33 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ int	is_not_cmd(t_token *token)
 
 int	can_add_cmd(t_parser *parser)
 {
-	if (parser->next_token->type != CMD)
+	if (parser->next_token->type != CMD
+		&& parser->next_token->type != SQUOTE
+		&& parser->next_token->type != DQUOTE)
 		return (0);
 	else if (parser->prev_token
 		&& (is_redirection(parser->prev_token)
-			&& parser->next_token->type == CMD))
+			&& (parser->next_token->type != CMD
+				&& parser->next_token->type != SQUOTE
+				&& parser->next_token->type != DQUOTE)))
 		return (0);
 	return (1);
 }

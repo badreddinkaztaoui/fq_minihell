@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:19:00 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 01:27:08 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/23 02:23:55 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_expand_env(char *line)
 	return (free(key), value);
 }
 
-void	ft_heredoc(char *del, char *filename)
+void	ft_heredoc(t_token *del, char *filename)
 {
 	char	*line;
 	char	*tmp;
@@ -90,9 +90,9 @@ void	ft_heredoc(char *del, char *filename)
 	while (1)
 	{
 		line = readline("> ");
-		if (!ft_strncmp(line, del, ft_strlen(del)))
+		if (!line || !ft_strncmp(line, del->value, ft_strlen(del->value)))
 			break ;
-		if (ft_strchr(line, '$'))
+		if (ft_strchr(line, '$') && del->type != SQUOTE && del->type != DQUOTE)
 		{
 			tmp = ft_expand_env(line);
 			free(line);
