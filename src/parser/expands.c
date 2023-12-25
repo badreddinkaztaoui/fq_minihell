@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 02:01:11 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/23 01:28:41 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/25 20:31:03 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,6 @@ char	*q_expand(t_lexer *lexer, char *val, char quote)
 			{
 				val = ft_strjoin_char(val, g_gob.ex_status + '0');
 				lexer_advance(lexer);
-				continue ;
-			}
-			val = ft_strjoin(val, get_env_val(lexer));
-			continue ;
-		}
-		val = ft_strjoin_char(val, lexer->c);
-		lexer_advance(lexer);
-	}
-	return (val);
-}
-
-char	*c_expand(t_lexer *lexer, char *val)
-{
-	while (lexer->c != '\0' && ft_isprint(lexer->c))
-	{
-		if (lexer->c == '$')
-		{
-			lexer_advance(lexer);
-			if (lexer->c == '?')
-			{
-				val = ft_strjoin_char(val, g_gob.ex_status + '0');
-				lexer_advance(lexer);
-				continue ;
-			}
-			if (lexer->c == '\0' || !ft_isalnum(lexer->c))
-			{
-				val = ft_strjoin_char(val, '$');
 				continue ;
 			}
 			val = ft_strjoin(val, get_env_val(lexer));

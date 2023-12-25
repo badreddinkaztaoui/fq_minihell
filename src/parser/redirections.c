@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:28:30 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/23 02:37:32 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/25 14:46:12 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	redir_out(t_command **cmd, t_parser *pars)
 		return ;
 	}
 	(*cmd)->out_fd = fd;
-	close((*cmd)->out_fd);
 }
 
 void	redir_append(t_command **cmd, t_parser *pars)
@@ -50,10 +49,7 @@ void	redir_append(t_command **cmd, t_parser *pars)
 		ft_nofile(pars->next_token->value);
 		return ;
 	}
-	if ((*cmd)->out_fd != 1)
-		close((*cmd)->out_fd);
 	(*cmd)->out_fd = fd;
-	close((*cmd)->out_fd);
 }
 
 void	handle_redirection(t_command **cmd, t_parser *pars)

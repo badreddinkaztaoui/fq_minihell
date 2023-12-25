@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_listsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 22:25:33 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 20:10:49 by bkaztaou         ###   ########.fr       */
+/*   Created: 2023/12/25 14:14:45 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/12/25 14:15:08 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isbashchars(int c)
-{
-	if (c != 124 && c != 60 && c != 62 && c != 39 && c != 34)
-		return (1);
-	return (0);
-}
+#include "../../include/minishell.h"
 
-int	ft_isprint(int c)
+int	ft_listsize(t_command *lst)
 {
-	if ((c > 32 && c <= 126))
-		return (1);
-	return (0);
+	int			i;
+	t_command	*tmp;
+
+	i = 0;
+	tmp = lst;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }

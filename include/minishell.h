@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/23 02:30:33 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/25 20:26:23 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ t_lexer		*init_lexer(char *line);
 void		lexer_advance(t_lexer *lexer);
 t_token		*lexer_advance_with(t_token *token, t_lexer *lexer);
 char		*get_env_val(t_lexer *lexer);
-t_token		*lexer_collect_cmd(t_lexer *lexer);
-t_token		*lexer_collect_squote(t_lexer *lexer);
-t_token		*lexer_collect_dquote(t_lexer *lexer);
+char		*lexer_collect_escape(t_lexer *lexer);
+char		*lexer_collect_dollar(t_lexer *lexer);
+char		*lexer_collect_squote(t_lexer *lexer);
+char		*lexer_collect_dquote(t_lexer *lexer);
 t_token		*lexer_collect_rarrow(t_lexer *lexer);
 t_token		*lexer_collect_larrow(t_lexer *lexer);
 // Tokenizer
@@ -124,16 +125,29 @@ char		*ft_genname(void);
 int			heredoc(t_token *del, t_command **cmd);
 void		ft_heredoc(t_token *del, char *filename);
 void		handle_redirection(t_command **cmd, t_parser *pars);
-// CHECKERS
+// PARSING CHECKERS
 int			is_iofiles(t_token *token);
 int			is_redirection(t_token *token);
 int			is_not_cmd(t_token *token);
 int			can_add_cmd(t_parser *parser);
 int			is_valid_cmd(t_parser *parser);
+// Execution
+void		execution(t_command *cmd);
+int			is_builtin(char *command);
+void		ft_builtins(t_command *cmd);
+// Builtins
+void		ft_echo(t_command *cmd);
+// void		ft_cd(t_command *cmd);
+// void		ft_pwd(void);
+// void		ft_export(t_command *cmd);
+// void		ft_unset(t_command *cmd);
+void		ft_env(t_command *cmd);
+// void		ft_exit(t_command *cmd);
 // SIGNALS
 void		ctrl_handler(int num);
 // Utils
 void		*ft_realloc(void *ptr, size_t size);
+int			ft_listsize(t_command *lst);
 // Free
 void		free_token(t_token *token);
 void		free_command(t_parser *parser);

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 10:23:16 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 23:16:01 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/25 21:27:11 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,52 @@ t_token	*lexer_advance_with(t_token *token, t_lexer *lexer)
 	return (token);
 }
 
+t_token	*lexer_get_char_value(t_lexer *lexer)
+{
+	char	*value;
+	char	*tmp;
+
+	tmp = NULL;
+	value = ft_strdup("");
+	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|'
+		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
+	{
+		if (lexer->c == '\'')
+			tmp = lexer_collect_squote(lexer);
+		else if (lexer->c == '\"')
+			tmp = lexer_collect_dquote(lexer);
+		else if (lexer->c == '$')
+			tmp = lexer_collect_dollar(lexer);
+		else
+		{
+			value = ft_strjoin_char(value, lexer->c);
+			lexer_advance(lexer);
+		}
+		if (tmp)
+		{
+			value = ft_strjoin(value, ft_strdup(tmp));
+			free(tmp);
+			tmp = NULL;
+		}
+	}
+	return (init_token(value, CMD));
+}
+
 t_token	*lexer_get_next_token(t_lexer *lexer)
 {
 	while (lexer->c != '\0')
 	{
 		if (ft_iswp(lexer->c))
 			lexer_advance(lexer);
-		if (ft_isprint(lexer->c))
-			return (lexer_collect_cmd(lexer));
 		if (lexer->c == '|')
 			return (lexer_advance_with(
 					init_token(ft_strdup("|"), PIPE), lexer));
-		if (lexer->c == '\'')
-			return (lexer_collect_squote(lexer));
-		if (lexer->c == '\"')
-			return (lexer_collect_dquote(lexer));
-		if (lexer->c == '<')
+		else if (lexer->c == '<')
 			return (lexer_collect_larrow(lexer));
-		if (lexer->c == '>')
+		else if (lexer->c == '>')
 			return (lexer_collect_rarrow(lexer));
+		else if (!ft_iswp(lexer->c))
+			return (lexer_get_char_value(lexer));
 	}
 	return (init_token(ft_strdup("EOF"), END));
 }

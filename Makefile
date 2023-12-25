@@ -6,7 +6,7 @@
 #    By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/17 08:31:30 by bkaztaou          #+#    #+#              #
-#    Updated: 2023/12/23 01:53:31 by bkaztaou         ###   ########.fr        #
+#    Updated: 2023/12/25 14:24:41 by bkaztaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ LIBFT = -L./libft -lft
 
 FILES = ./src/minishell.c \
 			$(wildcard ./src/parser/*.c) $(wildcard ./src/lexer/*.c) \
-			$(wildcard ./src/utils/*.c) $(wildcard ./src/debug/*.c)
+			$(wildcard ./src/utils/*.c) $(wildcard ./src/debug/*.c) \
+			$(wildcard ./src/execution/builtins/*.c) \
+			$(wildcard ./src/execution/*.c)
 OBJ = $(FILES:.c=.o)
 
 GREEN = \033[0;32m
