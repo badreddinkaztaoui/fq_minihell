@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 22:35:39 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 01:29:30 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 09:37:29 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_token_to_command(t_command *command, char *item)
 	command->index++;
 }
 
-void	parse_cmd(t_command **cmd, t_parser *parser)
+int	parse_cmd(t_command **cmd, t_parser *parser)
 {
 	if (parser->next_token->type == PIPE)
 	{
@@ -32,7 +32,11 @@ void	parse_cmd(t_command **cmd, t_parser *parser)
 		*cmd = (*cmd)->next;
 	}
 	if (is_redirection(parser->prev_token))
-		handle_redirection(cmd, parser);
+	{
+		if (handle_redirection(cmd, parser))
+			return (1);
+	}
+	return (0);
 }
 
 int	is_valid_start(t_parser *parser)
@@ -48,7 +52,7 @@ int	is_valid_start(t_parser *parser)
 	return (1);
 }
 
-void	parse(t_lexer *lexer, t_parser *parser)
+int	parse(t_lexer *lexer, t_parser *parser)
 {
 	t_command	*command;
 
@@ -58,7 +62,7 @@ void	parse(t_lexer *lexer, t_parser *parser)
 	while (parser->next_token->type != END)
 	{
 		if (!is_valid_start(parser))
-			return ;
+			return (1);
 		if (can_add_cmd(parser))
 			add_token_to_command(command, parser->next_token->value);
 		if (parser->prev_token)
@@ -67,9 +71,11 @@ void	parse(t_lexer *lexer, t_parser *parser)
 		free_token(parser->next_token);
 		parser->next_token = lexer_get_next_token(lexer);
 		if (!is_valid_cmd(parser))
-			return ;
-		parse_cmd(&command, parser);
+			return (1);
+		if (parse_cmd(&command, parser))
+			return (1);
 	}
 	free_token(parser->prev_token);
 	free_token(parser->next_token);
+	return (0);
 }

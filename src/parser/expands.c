@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 02:01:11 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 20:31:03 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 00:29:21 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*get_env_val(t_lexer *lexer)
 		return (free(key), ft_strdup("$"));
 	while (g_gob.env[i])
 	{
-		if (ft_strncmp(g_gob.env[i], key, ft_strlen(key)) == 0)
+		if (ft_strncmp(g_gob.env[i], key, ft_strlen(key)) == 0
+			&& g_gob.env[i][ft_strlen(key)] == '=')
 		{
 			value = ft_strdup(g_gob.env[i] + ft_strlen(key) + 1);
 			return (free(key), value);

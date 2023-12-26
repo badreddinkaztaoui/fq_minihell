@@ -1,51 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/25 14:55:08 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 01:49:28 by bkaztaou         ###   ########.fr       */
+/*   Created: 2023/12/26 09:45:23 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/12/26 10:22:36 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	has_n_flag(char *command)
+static void	ft_unsetenv(char *key)
 {
-	int i;
+	char	**env;
+	char	**u_env;
+	int		i;
+	int		j;
 
+	env = g_gob.env;
+	u_env = malloc(sizeof(char *) * ft_tabsize(env));
+	if (!u_env)
+		return ;
 	i = 0;
-	if (command[i] == '-')
+	j = 0;
+	while (env[i])
 	{
-		i++;
-		while (command[i])
+		if (ft_strncmp(env[i], key, ft_strlen(key)) != 0)
 		{
-			if (command[i] != 'n')
-				return (0);
-			i++;
+			u_env[j] = ft_strdup(env[i]);
+			j++;
 		}
-		return (1);
+		i++;
 	}
-	return (0);
+	u_env[j] = NULL;
+	free(env);
+	g_gob.env = u_env;
 }
 
-void	ft_echo(t_command *cmd)
+void	ft_unset(t_command *cmd)
 {
-	int i;
+	int	i;
 
 	i = 1;
-	while (i < cmd->index && has_n_flag(cmd->items[i]))
-		i++;
+	if (!cmd->items[i])
+		return ;
 	while (i < cmd->index)
 	{
-		ft_putstr_fd(cmd->items[i], cmd->out_fd);
-		if (i + 1 < cmd->index)
-			ft_putchar_fd(' ', cmd->out_fd);
+		if (getenv(cmd->items[i]))
+			ft_unsetenv(cmd->items[i]);
 		i++;
 	}
-	if (!has_n_flag(cmd->items[1]))
-		ft_putchar_fd('\n', cmd->out_fd);
-	g_gob.ex_status = 0;
 }

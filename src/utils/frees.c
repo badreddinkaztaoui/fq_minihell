@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 04:50:54 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 18:48:36 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 13:00:07 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ void	free_token(t_token *token)
 		return ;
 	free(token->value);
 	free(token);
+}
+
+void	dp_free(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str);
 }

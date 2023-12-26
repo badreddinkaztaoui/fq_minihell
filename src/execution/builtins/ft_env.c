@@ -6,21 +6,11 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 14:24:56 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 14:40:39 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 00:08:17 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-void	dp_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		free(str[i++]);
-	free(str);
-}
 
 void	ft_env(t_command *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:26:24 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/23 02:24:33 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 09:42:06 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,11 @@ int	is_not_cmd(t_token *token)
 
 int	can_add_cmd(t_parser *parser)
 {
-	if (parser->next_token->type != CMD
-		&& parser->next_token->type != SQUOTE
-		&& parser->next_token->type != DQUOTE)
+	if (parser->next_token->type != CMD)
 		return (0);
 	else if (parser->prev_token
 		&& (is_redirection(parser->prev_token)
-			&& (parser->next_token->type != CMD
-				&& parser->next_token->type != SQUOTE
-				&& parser->next_token->type != DQUOTE)))
+			&& parser->next_token->type == CMD))
 		return (0);
 	return (1);
 }
@@ -61,6 +57,7 @@ int	is_valid_cmd(t_parser *parser)
 		ft_unexpected_token(parser->prev_token->value);
 		free_token(parser->next_token);
 		free_token(parser->prev_token);
+		free_command(parser);
 		return (0);
 	}
 	return (1);

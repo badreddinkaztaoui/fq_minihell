@@ -6,13 +6,13 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 23:28:30 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 14:46:12 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 01:54:32 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	redir_in(t_command **cmd, t_parser *pars)
+int	redir_in(t_command **cmd, t_parser *pars)
 {
 	int	fd;
 
@@ -20,13 +20,13 @@ void	redir_in(t_command **cmd, t_parser *pars)
 	if (fd == -1)
 	{
 		ft_nofile(pars->next_token->value);
-		return ;
+		return (1);
 	}
 	(*cmd)->in_fd = fd;
-	unlink(pars->next_token->value);
+	return (0);
 }
 
-void	redir_out(t_command **cmd, t_parser *pars)
+int	redir_out(t_command **cmd, t_parser *pars)
 {
 	int	fd;
 
@@ -34,12 +34,13 @@ void	redir_out(t_command **cmd, t_parser *pars)
 	if (fd == -1)
 	{
 		ft_nofile(pars->next_token->value);
-		return ;
+		return (1);
 	}
 	(*cmd)->out_fd = fd;
+	return (0);
 }
 
-void	redir_append(t_command **cmd, t_parser *pars)
+int	redir_append(t_command **cmd, t_parser *pars)
 {
 	int	fd;
 
@@ -47,19 +48,24 @@ void	redir_append(t_command **cmd, t_parser *pars)
 	if (fd == -1)
 	{
 		ft_nofile(pars->next_token->value);
-		return ;
+		return (1);
 	}
 	(*cmd)->out_fd = fd;
+	return (0);
 }
 
-void	handle_redirection(t_command **cmd, t_parser *pars)
+int	handle_redirection(t_command **cmd, t_parser *pars)
 {
+	int	status;
+
+	status = 0;
 	if (pars->prev_token->type == HEREDOC)
-		heredoc(pars->next_token, cmd);
+		status = heredoc(pars->next_token, cmd);
 	if (pars->prev_token->type == REDIR_IN)
-		redir_in(cmd, pars);
+		status = redir_in(cmd, pars);
 	if (pars->prev_token->type == REDIR_OUT)
-		redir_out(cmd, pars);
+		status = redir_out(cmd, pars);
 	if (pars->prev_token->type == REDIR_APPEND)
-		redir_append(cmd, pars);
+		status = redir_append(cmd, pars);
+	return (status);
 }

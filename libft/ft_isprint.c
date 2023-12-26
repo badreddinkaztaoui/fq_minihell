@@ -6,16 +6,11 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 22:25:33 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 20:10:49 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 01:46:19 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isbashchars(int c)
-{
-	if (c != 124 && c != 60 && c != 62 && c != 39 && c != 34)
-		return (1);
-	return (0);
-}
+#include "./libft.h"
 
 int	ft_isprint(int c)
 {

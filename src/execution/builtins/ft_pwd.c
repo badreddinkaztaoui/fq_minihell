@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/25 14:13:52 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 01:23:28 by bkaztaou         ###   ########.fr       */
+/*   Created: 2023/12/25 22:03:04 by bkaztaou          #+#    #+#             */
+/*   Updated: 2023/12/25 22:46:26 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-void	execution(t_command *cmd)
+void	ft_pwd(t_command *cmd)
 {
-	// int	i;
-	int	size;
+	char	*pwd;
 
-	// i = 0;
-	if (!cmd->items)
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		perror("getcwd()");
 		return ;
-	size = ft_listsize(cmd);
-	if (cmd && size == 1 && is_builtin(cmd->items[0]))
-		ft_builtins(cmd);
+	}
+	ft_putendl_fd(pwd, cmd->out_fd);
+	free(pwd);
+	g_gob.ex_status = 0;
 }

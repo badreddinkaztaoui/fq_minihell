@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/25 20:26:23 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 16:03:17 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,14 @@ t_token		*lexer_collect_larrow(t_lexer *lexer);
 t_token		*lexer_get_next_token(t_lexer *lexer);
 // Expands
 char		*q_expand(t_lexer *lexer, char *val, char quote);
-char		*c_expand(t_lexer *lexer, char *val);
 // Parser
 t_command	*init_command(void);
 void		init_parser(t_parser *parser);
-void		parse(t_lexer *lexer, t_parser *parser);
+int			parse(t_lexer *lexer, t_parser *parser);
 char		*ft_genname(void);
 int			heredoc(t_token *del, t_command **cmd);
 void		ft_heredoc(t_token *del, char *filename);
-void		handle_redirection(t_command **cmd, t_parser *pars);
+int			handle_redirection(t_command **cmd, t_parser *pars);
 // PARSING CHECKERS
 int			is_iofiles(t_token *token);
 int			is_redirection(t_token *token);
@@ -137,20 +136,25 @@ int			is_builtin(char *command);
 void		ft_builtins(t_command *cmd);
 // Builtins
 void		ft_echo(t_command *cmd);
-// void		ft_cd(t_command *cmd);
-// void		ft_pwd(void);
-// void		ft_export(t_command *cmd);
-// void		ft_unset(t_command *cmd);
+void		ft_cd(t_command *cmd);
+void		ft_pwd(t_command *cmd);
+int			ft_export(t_command *cmd);
+void		ft_unset(t_command *cmd);
 void		ft_env(t_command *cmd);
-// void		ft_exit(t_command *cmd);
+void		ft_exit(t_command *cmd);
 // SIGNALS
 void		ctrl_handler(int num);
 // Utils
 void		*ft_realloc(void *ptr, size_t size);
 int			ft_listsize(t_command *lst);
+int			ft_tabsize(char **tab);
+void		sort_by_key(char **envp);
+void		export_print(void);
+int			is_valid_key(char *command);
 // Free
 void		free_token(t_token *token);
 void		free_command(t_parser *parser);
+void		dp_free(char **str);
 // Testers
 void		print_tokens(t_lexer *lexer);
 void		print_command(t_command *command);
