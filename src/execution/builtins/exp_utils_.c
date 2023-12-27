@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_utils.c                                          :+:      :+:    :+:   */
+/*   exp_utils_.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 13:02:35 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 15:40:04 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:22:33 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,15 @@ int	is_valid_key(char *command)
 char	**clone_env(void)
 {
 	char	**envc;
-	char	**envp;
 	int		i;
 
-	envp = g_gob.env;
 	envc = malloc(sizeof(char *) * (ft_tabsize(g_gob.env) + 1));
 	if (!envc)
 		return (NULL);
 	i = 0;
-	while (envp[i])
+	while (g_gob.env[i])
 	{
-		envc[i] = ft_strdup(envp[i]);
+		envc[i] = ft_strdup(g_gob.env[i]);
 		i++;
 	}
 	envc[i] = NULL;
@@ -75,11 +73,23 @@ void	sort_by_key(char **envp)
 	}
 }
 
+int	export_err(t_command *cmd, int i)
+{
+	if (cmd->items[i] && !is_valid_key(cmd->items[i]))
+	{
+		ft_putstr_fd("minishell: export: ", cmd->out_fd);
+		ft_putstr_fd(cmd->items[i], cmd->out_fd);
+		ft_putstr_fd(" not a valid identifier\n", cmd->out_fd);
+		return (1);
+	}
+	return (0);
+}
+
 void	export_print(void)
 {
 	char	**env;
 
-	env = clone_env();
+	env = g_gob.s_env;
 	sort_by_key(env);
 	while (*env)
 	{

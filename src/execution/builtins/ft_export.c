@@ -6,58 +6,71 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:46:02 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 17:33:36 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:13:34 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	ft_putenv(char *key, char *value)
+void	ft_update_env(char *key, char *val, char **envp)
 {
-	char	**env;
+	int	i;
 
-	env = g_gob.env;
-	while (*env)
+	i = 0;
+	while (envp[i])
 	{
-		if (!ft_strncmp(*env, key, ft_strlen(key)))
+		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
 		{
-			free(*env);
-			*env = ft_strjoin(key, value);
-			return ;
+			free(envp[i]);
+			envp[i] = ft_getenv(key, val, 1);
+			break ;
 		}
-		env++;
+		i++;
 	}
-	free(key);
-	free(value);
+}
+
+void	ft_putenv(char *key, char *value, int has_equal)
+{
+	char	*envp;
+
+	envp = ft_getenv(key, value, has_equal);
+	if (is_keyexist(key, g_gob.env))
+		ft_update_env(key, value, g_gob.env);
+	if (is_keyexist(key, g_gob.s_env))
+		ft_update_env(key, value, g_gob.s_env);
+	if (!is_keyexist(key, g_gob.env) && has_equal)
+		g_gob.env = ft_tabjoin(g_gob.env, envp);
+	if (!is_keyexist(key, g_gob.s_env))
+		g_gob.s_env = ft_tabjoin(g_gob.s_env, envp);
+	free(envp);
 }
 
 void	ft_setenv(char *item)
 {
-	char	**tmp;
 	char	*key;
 	char	*value;
+	int		has_equal;
+	int		i;
 
-	tmp = ft_split(item, '=');
-	key = ft_strdup(tmp[0]);
-	key = ft_strjoin_char(key, '=');
-	if (!tmp[1])
-		value = ft_strdup("");
-	else
-		value = ft_strdup(tmp[1]);
-	ft_putenv(key, value);
-	dp_free(tmp);
-}
-
-int	export_err(t_command *cmd, int i)
-{
-	if (cmd->items[i] && !is_valid_key(cmd->items[i]))
+	i = 0;
+	has_equal = 0;
+	key = ft_strdup("");
+	value = ft_strdup("");
+	while (item[i] && item[i] != '=')
 	{
-		ft_putstr_fd("minishell: export: ", cmd->out_fd);
-		ft_putstr_fd(cmd->items[i], cmd->out_fd);
-		ft_putstr_fd(" not a valid identifier\n", cmd->out_fd);
-		return (1);
+		key = ft_strjoin_char(key, item[i]);
+		i++;
 	}
-	return (0);
+	if (item[i] == '=')
+	{
+		has_equal = 1;
+		i++;
+	}
+	while (item[i])
+		value = ft_strjoin_char(value, item[i++]);
+	ft_putenv(key, value, has_equal);
+	free(key);
+	free(value);
 }
 
 int	ft_export(t_command *cmd)

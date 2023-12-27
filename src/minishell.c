@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:42:41 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 13:00:38 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/26 23:40:01 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,13 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	g_gob.ex_status = 0;
-	g_gob.heredoc_count = 0;
+	if (!env[0])
+	{
+		ft_putendl_fd("minishell: env is empty", 2);
+		exit(1);
+	}
 	init_envs(env);
+	g_gob.s_env = clone_env();
 	minishell_loop(&minishell, &parser);
 	clear_history();
 	minishell_exit(&minishell);

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 16:03:17 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:14:04 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_gob
 	int		ex_status;
 	int		heredoc_count;
 	char	**env;
+	char	**s_env;
 }	t_gob;
 
 typedef enum s_types
@@ -151,6 +152,12 @@ int			ft_tabsize(char **tab);
 void		sort_by_key(char **envp);
 void		export_print(void);
 int			is_valid_key(char *command);
+int			export_err(t_command *cmd, int i);
+int			is_valid_key(char *command);
+char		**ft_tabjoin(char **envp, char *env);
+int			is_keyexist(char *key, char **envp);
+char		*ft_getenv(char *key, char *val, int has_equal);
+char		**clone_env(void);
 // Free
 void		free_token(t_token *token);
 void		free_command(t_parser *parser);
