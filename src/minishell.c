@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:42:41 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 23:40:01 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:27:53 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ t_gob	g_gob;
 
 void	minishell_loop(t_minishell *minishell, t_parser *parser)
 {
+	signal(SIGINT, ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		minishell->line = readline(LIGHT_BLUE "👾 minishell $ " RESET);
+		if (!minishell->line)
+			ctrl_d();
 		add_history(minishell->line);
 		minishell->lexer = init_lexer(minishell->line);
 		if (parse(minishell->lexer, parser))
@@ -26,7 +30,6 @@ void	minishell_loop(t_minishell *minishell, t_parser *parser)
 			minishell_exit(minishell);
 			continue ;
 		}
-		// print_command(parser->command);
 		execution(parser->command);
 		free_command(parser);
 		minishell_exit(minishell);

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 02:09:38 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/23 02:37:45 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:52:02 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	h_process(t_token *del, char *filename)
 		return (free(filename), 1);
 	if (id == 0)
 	{
-		signal(SIGINT, ctrl_handler);
+		signal(SIGINT, ctrl_);
 		ft_heredoc(del, filename);
 		exit(0);
 	}

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:45:23 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 14:42:25 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:59:52 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_unset(t_command *cmd)
 	i = 1;
 	if (!cmd->items[i])
 		return ;
-	while (i < cmd->index)
+	while (cmd->items[i])
 	{
 		if (is_keyexist(cmd->items[i], g_gob.env))
 			ft_unsetenv(cmd->items[i], 'e');

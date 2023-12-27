@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 14:14:04 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:36:06 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,9 @@ typedef struct s_command
 {
 	int					in_fd;
 	int					out_fd;
-	int					index;
+	int					fds[2];
 	char				**items;
+	int					index;
 	struct s_command	*next;
 }	t_command;
 
@@ -135,6 +136,14 @@ int			is_valid_cmd(t_parser *parser);
 void		execution(t_command *cmd);
 int			is_builtin(char *command);
 void		ft_builtins(t_command *cmd);
+void		run_cmds(t_command *cmd);
+void		execute_cmds(t_command *cmd, t_command *tmp, int size);
+void		execute_one_cmd(t_command *cmd);
+void		execute_pipes(t_command *cmd, t_command *tmp);
+void		execute_last_cmd(t_command *cmd, t_command *tmp);
+void		ft_close_files(t_command *cmd, t_command *tmp);
+void		ft_close_all(t_command *cmd, t_command *tmp);
+
 // Builtins
 void		ft_echo(t_command *cmd);
 void		ft_cd(t_command *cmd);
@@ -144,7 +153,9 @@ void		ft_unset(t_command *cmd);
 void		ft_env(t_command *cmd);
 void		ft_exit(t_command *cmd);
 // SIGNALS
-void		ctrl_handler(int num);
+void		ctrl_(int num);
+void		ctrl_c(int num);
+void		ctrl_d(void);
 // Utils
 void		*ft_realloc(void *ptr, size_t size);
 int			ft_listsize(t_command *lst);
@@ -169,6 +180,8 @@ void		print_command(t_command *command);
 void		ft_unexpected_token(char *token);
 void		ft_genl_err(char *token);
 void		ft_nofile(char *token);
+void		ft_cmd_not_found(char *command);
+void		throw_error(t_command *cmd);
 
 extern t_gob	g_gob;
 

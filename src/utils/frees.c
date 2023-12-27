@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 04:50:54 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 13:00:07 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 18:00:32 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_command(t_parser *parser)
 	while (tmp)
 	{
 		next = tmp->next;
-		i = tmp->index;
+		i = ft_tabsize(tmp->items);
 		while (i--)
 			free(tmp->items[i]);
 		free(tmp->items);

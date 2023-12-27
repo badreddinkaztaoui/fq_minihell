@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 22:47:46 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 00:32:28 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:55:50 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	ft_cd(t_command *cmd)
 	char	*path;
 	char	*o_pwd;
 	char	*c_pwd;
+	int		len;
 
-	if (cmd->index == 1 || ft_strncmp(cmd->items[1], "~", 1) == 0)
+	len = ft_tabsize(cmd->items);
+	if (len == 1 || ft_strncmp(cmd->items[1], "~", 1) == 0)
 		path = getenv("HOME");
 	else
 	{

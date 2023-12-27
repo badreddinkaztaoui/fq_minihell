@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:46:02 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 14:13:34 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:58:06 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,17 @@ void	ft_setenv(char *item)
 int	ft_export(t_command *cmd)
 {
 	int	i;
+	int	len;
 
-	if (cmd->index == 1)
+	len = ft_tabsize(cmd->items);
+	if (len == 1)
 		return (export_print(), 0);
 	i = 1;
-	while (i < cmd->index && !ft_strncmp(cmd->items[i], "\0", 1))
+	while (cmd->items[i] && !ft_strncmp(cmd->items[i], "\0", 1))
 		i++;
-	if (i == cmd->index)
+	if (i == len)
 		return (export_print(), 0);
-	while (i < cmd->index)
+	while (cmd->items[i])
 	{
 		if (!ft_strncmp(cmd->items[i], "\0", 1))
 		{

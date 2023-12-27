@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 14:55:08 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 01:49:28 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:56:57 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,21 @@ int	has_n_flag(char *command)
 void	ft_echo(t_command *cmd)
 {
 	int i;
+	int	len;
 
 	i = 1;
-	while (i < cmd->index && has_n_flag(cmd->items[i]))
+	len = ft_tabsize(cmd->items);
+	if (len == 1)
+	{
+		ft_putchar_fd('\n', cmd->out_fd);
+		return ;
+	}
+	while (cmd->items[i] && has_n_flag(cmd->items[i]))
 		i++;
-	while (i < cmd->index)
+	while (cmd->items[i])
 	{
 		ft_putstr_fd(cmd->items[i], cmd->out_fd);
-		if (i + 1 < cmd->index)
+		if (cmd->items[i + 1])
 			ft_putchar_fd(' ', cmd->out_fd);
 		i++;
 	}

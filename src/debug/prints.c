@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:03:48 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 23:18:35 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:54:38 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ void	print_tokens(t_lexer *lexer)
 
 void	print_command(t_command *command)
 {
+	int	i;
+
 	while (command)
 	{
-		for (int i = 0; i < command->index; i++)
+		i = 0;
+		while (command->items[i])
 		{
-			printf("|%-17s|\n", command->items[i]);
+			printf("items[%d]: %s\n", i, command->items[i]);
+			i++;
 		}
 		printf("in_fd: %d\n", command->in_fd);
 		printf("out_fd: %d\n", command->out_fd);

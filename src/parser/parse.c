@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 22:35:39 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 09:37:29 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 18:56:10 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	add_token_to_command(t_command *command, char *item)
 {
-	command->items = ft_realloc(command->items, sizeof(char *)
-			* (command->index + 1));
-	command->items[command->index]
-		= malloc(sizeof(char) * (ft_strlen(item) + 1));
-	if (!command->items[command->index])
+	int	len;
+
+	len = ft_tabsize(command->items);
+	command->items = ft_realloc(command->items, sizeof(char *) * (len + 2));
+	command->items[len] = malloc(sizeof(char) * (ft_strlen(item) + 1));
+	if (!command->items[len])
 		return ;
-	ft_strlcpy(command->items[command->index], item, ft_strlen(item) + 1);
-	command->index++;
+	ft_strlcpy(command->items[len], item, ft_strlen(item) + 1);
+	command->items[len + 1] = NULL;
 }
 
 int	parse_cmd(t_command **cmd, t_parser *parser)
@@ -29,6 +30,7 @@ int	parse_cmd(t_command **cmd, t_parser *parser)
 	if (parser->next_token->type == PIPE)
 	{
 		(*cmd)->next = init_command();
+		(*cmd)->next->index = (*cmd)->index + 1;
 		*cmd = (*cmd)->next;
 	}
 	if (is_redirection(parser->prev_token))

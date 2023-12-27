@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 00:32:34 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 23:38:30 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:07:13 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ void	ft_nofile(char *token)
 	g_gob.ex_status = 1;
 }
 
-void	ft_command_not_found(char *command)
+void	ft_cmd_not_found(char *command)
 {
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putstr_fd("\n", 2);
 	g_gob.ex_status = 127;
+	exit(127);
 }

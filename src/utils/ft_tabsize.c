@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 10:19:33 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/26 12:54:31 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:51:33 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_tabsize(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return (0);
 	while (tab[i])
 		i++;
 	return (i);

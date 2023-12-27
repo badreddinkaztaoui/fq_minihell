@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 04:18:19 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/22 23:17:59 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/27 18:55:46 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ t_command	*init_command(void)
 		return (NULL);
 	command->in_fd = 0;
 	command->out_fd = 1;
-	command->index = 0;
 	command->items = NULL;
 	command->next = NULL;
+	command->index = 0;
 	return (command);
 }
 
