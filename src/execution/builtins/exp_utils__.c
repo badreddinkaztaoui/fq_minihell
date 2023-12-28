@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 14:12:21 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 14:13:18 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 06:14:01 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,21 @@ char	**ft_tabjoin(char **envp, char *env)
 	tmp[i + 1] = NULL;
 	free(envp);
 	return (tmp);
+}
+
+void	ft_export_nxt(t_command *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->items[i])
+	{
+		if (!ft_strncmp(cmd->items[i], "\0", 1))
+		{
+			i++;
+			continue ;
+		}
+		ft_setenv(cmd->items[i]);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 10:23:16 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/28 02:54:10 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 06:30:39 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ t_token	*lexer_get_char_value(t_lexer *lexer)
 
 	tmp = NULL;
 	value = ft_strdup("");
-	while (lexer->c != '<' && lexer->c != '>' && lexer->c != '|'
-		&& lexer->c != '\t' && lexer->c != ' ' && lexer->c != '\0')
+	while (ft_isprint(lexer->c))
 	{
 		if (lexer->c == '\'')
 			tmp = lexer_collect_squote(lexer);
@@ -52,7 +51,6 @@ t_token	*lexer_get_char_value(t_lexer *lexer)
 		{
 			value = ft_strjoin(value, ft_strdup(tmp));
 			free(tmp);
-			tmp = NULL;
 		}
 	}
 	return (init_token(value, CMD));

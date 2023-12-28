@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/28 02:38:32 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 06:14:57 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ void		execute_pipes(t_command *cmd, t_command *tmp);
 void		execute_last_cmd(t_command *cmd, t_command *tmp);
 void		ft_close_files(t_command *cmd, t_command *tmp);
 void		ft_close_all(t_command *cmd, t_command *tmp);
+void		ft_setenv(char *item);
+void		ft_export_nxt(t_command *cmd);
 
 // Builtins
 void		ft_echo(t_command *cmd);

@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 09:46:02 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/28 00:16:46 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 06:13:48 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,6 @@ int	ft_export(t_command *cmd)
 	key = ft_getkey(cmd->items[i]);
 	if (export_err(cmd, key, i))
 		return (1);
-	while (cmd->items[i])
-	{
-		if (!ft_strncmp(cmd->items[i], "\0", 1))
-		{
-			i++;
-			continue ;
-		}
-		ft_setenv(cmd->items[i]);
-		i++;
-	}
+	ft_export_nxt(cmd);
 	return (0);
 }
