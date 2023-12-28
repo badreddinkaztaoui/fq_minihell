@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 19:38:29 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/28 02:40:22 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 02:58:03 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	execute_last_cmd(t_command *cmd, t_command *tmp)
 
 void	execute_cmds(t_command *cmd, t_command *tmp, int size)
 {
-	
 	if (size > 1)
 	{
 		if (cmd->index != size - 1)

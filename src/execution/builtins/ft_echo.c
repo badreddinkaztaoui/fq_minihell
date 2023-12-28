@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 14:55:08 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 17:56:57 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 02:59:12 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	has_n_flag(char *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (command[i] == '-')
@@ -33,7 +33,7 @@ int	has_n_flag(char *command)
 
 void	ft_echo(t_command *cmd)
 {
-	int i;
+	int	i;
 	int	len;
 
 	i = 1;
