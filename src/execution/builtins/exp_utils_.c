@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 13:02:35 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 14:22:33 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 02:32:20 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ void	sort_by_key(char **envp)
 	}
 }
 
-int	export_err(t_command *cmd, int i)
+int	export_err(t_command *cmd, char *key, int i)
 {
-	if (cmd->items[i] && !is_valid_key(cmd->items[i]))
+	if (cmd->items[i] && !is_valid_key(key))
 	{
 		ft_putstr_fd("minishell: export: ", cmd->out_fd);
 		ft_putstr_fd(cmd->items[i], cmd->out_fd);
 		ft_putstr_fd(" not a valid identifier\n", cmd->out_fd);
-		return (1);
+		return (free(key), 1);
 	}
-	return (0);
+	return (free(key), 0);
 }
 
 void	export_print(void)

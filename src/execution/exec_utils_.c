@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 19:38:29 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 21:13:29 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 02:40:22 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	run_cmds(t_command *cmd)
 	i = 0;
 	if (cmd->items && access(cmd->items[0], X_OK) == 0)
 		execve(cmd->items[0], cmd->items, g_gob.env);
-	else if (cmd->items)
+	else if (cmd->items && is_keyexist("PATH", g_gob.env))
 	{
-		paths = ft_split(getenv("PATH"), ':');
+		paths = ft_split(ft_geteval("PATH"), ':');
 		while (paths[i])
 		{
 			paths[i] = ft_strjoin_char(paths[i], '/');
@@ -33,6 +33,7 @@ void	run_cmds(t_command *cmd)
 			free(command);
 			i++;
 		}
+		free(paths);
 	}
 	throw_error(cmd);
 }

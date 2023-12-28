@@ -6,7 +6,7 @@
 /*   By: bkaztaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 08:36:15 by bkaztaou          #+#    #+#             */
-/*   Updated: 2023/12/27 21:36:06 by bkaztaou         ###   ########.fr       */
+/*   Updated: 2023/12/28 02:38:32 by bkaztaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,12 +162,14 @@ int			ft_listsize(t_command *lst);
 int			ft_tabsize(char **tab);
 void		sort_by_key(char **envp);
 void		export_print(void);
+char		*ft_getkey(char *command);
 int			is_valid_key(char *command);
-int			export_err(t_command *cmd, int i);
+int			export_err(t_command *cmd, char *key, int i);
 int			is_valid_key(char *command);
 char		**ft_tabjoin(char **envp, char *env);
 int			is_keyexist(char *key, char **envp);
 char		*ft_getenv(char *key, char *val, int has_equal);
+char		*ft_geteval(char *key);
 char		**clone_env(void);
 // Free
 void		free_token(t_token *token);
